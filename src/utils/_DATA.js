@@ -115,4 +115,122 @@ let questions = {
     },
 };
 
-export { users, questions };
+class API {
+//export const API = () =>  {
+    //static sFunc = 'API';
+
+    static generateUID() {
+        return Math.random().toString( 36 ).substring( 2, 15 ) + Math.random().toString( 36 ).substring( 2, 15 );
+    }
+
+    static _getUsers() {
+        return new Promise( ( res, rej ) => {
+            setTimeout( () => res( { ...users } ), 1000 );
+        } );
+    }
+
+    static _getQuestions() {
+        return new Promise( ( res, rej ) => {
+            setTimeout( () => res( { ...questions } ), 1000 );
+        } );
+    }
+
+    static getInitialData() {
+        return Promise.all( [
+                                this._getUsers(),
+                                this._getQuestions(),
+                            ] ).then( ( [ users, questions ] ) => ( {
+            users,
+            questions,
+        } ) );
+    }
+
+    static formatQuestion( { optionOneText, optionTwoText, authorId } ) {
+        return {
+            id : this.generateUID(),
+            timestamp : Date.now(),
+            authorId,
+            optionOne : {
+                votes : [],
+                text : optionOneText,
+            },
+            optionTwo : {
+                votes : [],
+                text : optionTwoText,
+            },
+        };
+    }
+
+    static _saveQuestionAnswer( { authedUser : authedUserId, qid, answer } ) {
+        return new Promise( ( res, rej ) => {
+            setTimeout( () => {
+                users = {
+                    ...users,
+                    [authedUserId] : {
+                        ...users[authedUserId],
+                        answers : {
+                            ...users[authedUserId].answers,
+                            [qid] : answer,
+                        },
+                    },
+                };
+
+                questions = {
+                    ...questions,
+                    [qid] : {
+                        ...questions[qid],
+                        [answer] : {
+                            ...questions[qid][answer],
+                            votes : questions[qid][answer].votes.concat( [ authedUserId ] ),
+                        },
+                    },
+                };
+
+                res();
+            }, 500 );
+        } );
+    }
+
+    static _saveQuestion( question ) {
+        let sFunc = '_saveQuestion()-->';
+        const debug = false;
+
+        debug && console.log( sFunc + 'this question', question );
+        debug && console.log( sFunc + 'questions1', questions );
+
+        return new Promise( ( res, rej ) => {
+            const authedUserId = question.authorId;
+            const formattedQuestion = API.formatQuestion( question );
+
+            debug && console.log( sFunc + 'formattedQuestion', formattedQuestion );
+            debug && console.log( sFunc + 'questions is defined?', typeof ( questions ) );
+
+            setTimeout( () => {
+                const sFuncX = '_saveQuestion().setTimeout()-->';
+
+                questions = {
+                    ...questions,
+                    [formattedQuestion.id] : formattedQuestion,
+                };
+
+                users = {
+                    ...users,
+                    [authedUserId] : {
+                        ...users[authedUserId],
+                        questions : users[authedUserId].questions.concat( [ formattedQuestion.id ] ),
+                    },
+                };
+                let sFunc = 'saveQuestion().setTimeout()-->';
+                debug && console.log( sFuncX + 'new users', users );
+                debug && console.log( sFuncX + 'new questions', questions );
+
+                res( formattedQuestion );
+            }, 1 );
+        } );
+
+    };
+
+}
+
+export { users, questions, API };
+
