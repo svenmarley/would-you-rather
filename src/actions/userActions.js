@@ -6,5 +6,11 @@ export function receiveUsersObj( users ) {
         type: GLOBALS.USERS.RECEIVE,
         users,
     }
+}
 
+export function addQuestionToUser( question ) {
+    return {
+        type: GLOBALS.USERS.ADD_QUESTION_TO_USER,
+        question
+    }
 }
