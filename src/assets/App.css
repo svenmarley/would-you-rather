@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.question-entry {
+  text-align: left;
+}
+.new-question-box {
+  margin: auto;
+  width: 300px;
+  border-style: solid;
+  border-color: lightgray;
+}
+
+.light-box {
+  border-style: solid;
+  border-color: lightgray;
+}

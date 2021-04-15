@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared';
 import '../assets/App.css';
+import NewQuestion from './NewQuestion';
 
 class App extends Component {
 
@@ -12,7 +13,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                Hello World
+                <NewQuestion />
             </div>
         );
     }
