@@ -1,4 +1,4 @@
-import {API} from '../utils/_DATA';
+import { API } from '../utils/_DATA';
 import { showLoading, hideLoading } from 'react-redux-loading';
 import { receiveUsersObj } from './userActions';
 import { receiveQuestionsObj } from './questionActions';
@@ -9,7 +9,7 @@ const AUTHED_ID = 'sarahedo';
 export const GLOBALS = {
     QUESTIONS : {
         RECEIVE : 'QUESTIONS_RECEIVE',
-        ADD: 'QUESTIONS_ADD',
+        ADD : 'QUESTIONS_ADD',
         OPTION_ONE : 'optionOne',
         OPTION_TWO : 'optionTwo',
     },
@@ -17,8 +17,13 @@ export const GLOBALS = {
         RECEIVE : 'USERS_RECEIVE',
         LOGIN : 'USER_LOGIN',
         LOGOUT : 'USER_LOGOUT',
-        ADD_QUESTION_TO_USER: 'USER_ADD_QUESTION_TO_USER'
+        ADD_QUESTION_TO_USER : 'USER_ADD_QUESTION_TO_USER',
     },
+    TABS : {
+        ANSWERED : 'TABS_ANSWERED',
+        UNANSWERED : 'TABS_UNANSWERED',
+    },
+
 };
 
 export function handleInitialData() {
