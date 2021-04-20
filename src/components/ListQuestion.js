@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { Avatar } from '@material-ui/core';
 import Question from './Question';
+import { withRouter} from 'react-router-dom'
 
 class ListQuestion extends Component {
     sFunc = 'ListQuestion'
@@ -16,10 +17,7 @@ class ListQuestion extends Component {
         const id = e.target.id;
         console.log( sFunc + 'id', id )
 
-
-        // todo: handle this, or move this here  to Dashboard
-
-
+        this.props.history.push( `/question/${id}` );
     }
 
     render() {
@@ -70,4 +68,4 @@ function mapStateToProps( { questions, users, authedUserId } ) {
     };
 }
 
-export default connect( mapStateToProps )( ListQuestion );
+export default withRouter( connect( mapStateToProps )( ListQuestion ) );
