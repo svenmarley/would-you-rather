@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { handleAddQuestion} from '../actions/questionActions';
-import {connect} from 'react-redux';
+import { handleAddQuestion } from '../actions/questionActions';
+import { connect } from 'react-redux';
 
 class NewQuestion extends Component {
     sFunc = 'NewQuestion';
@@ -22,7 +22,7 @@ class NewQuestion extends Component {
         this.setState( ( state ) => ( {
             ...state,
             [questionNumber] : value,
-        } ) )
+        } ) );
 
         debug && console.log( sFunc + 'state', this.state );
     };
@@ -34,17 +34,17 @@ class NewQuestion extends Component {
         e.preventDefault();
 
         const { question1, question2 } = this.state;
-        const { dispatch } = this.props
-        debug && console.log( sFunc + 'question1', question1, 'question2', question2)
+        const { dispatch } = this.props;
+        debug && console.log( sFunc + 'question1', question1, 'question2', question2 );
 
-        dispatch( handleAddQuestion( question1, question2 ) )
+        dispatch( handleAddQuestion( question1, question2 ) );
 
         this.setState( () => {
             return {
                 question1 : '',
                 question2 : '',
-            }
-        })
+            };
+        } );
 
     };
 
@@ -67,7 +67,6 @@ class NewQuestion extends Component {
                                 placeholder="Enter Question One"
                                 value={this.state.question1}
                                 onChange={this.handleChange}
-
                             />
                             <br/>
                             ------------------- or -------------------
@@ -80,8 +79,8 @@ class NewQuestion extends Component {
                                 onChange={this.handleChange}
                             />
                             <br/>
-                            <button
-                            >Submit
+                            <button>
+                                Submit
                             </button>
                         </form>
                     </div>
@@ -91,4 +90,4 @@ class NewQuestion extends Component {
     }
 }
 
-export default connect()(NewQuestion);
+export default connect()( NewQuestion );
