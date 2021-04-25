@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { GLOBALS } from '../actions/shared';
 import DashboardTab from './Dashboard-Tab';
 import { connect } from 'react-redux';
@@ -82,26 +81,27 @@ class Dashboard extends Component {
     }
 }
 
-Dashboard.propTypes = {};
-
 function mapStateToProps( { questions, users, authedUser } ) {
-    //const sFunc = 'Dashboard.mapStateToProps()-->'
+    const sFunc = 'Dashboard.mapStateToProps()-->'
 
     const user = users[authedUser];
+
+    console.log( sFunc + 'user', user );
 
     return {
         unansweredQuestionIds : Object.keys( questions ).filter( ( qId ) => {
             return (
-                ( typeof( user.answers[qId] ) === 'undefined' )
-            )
-        } ).sort( ( a, b ) => questions[a].timestamp - questions[b].timestamp ),
+                ( typeof ( user.answers[qId] ) === 'undefined' )
+            );
+        } ).sort( ( a, b ) => questions[a].timestamp - questions[b].timestamp )
 
-        answeredQuestionIds : Object.keys( questions ).filter( ( qId ) => {
+        , answeredQuestionIds : Object.keys( questions ).filter( ( qId ) => {
             return (
-                ( typeof( user.answers[qId] ) !== 'undefined' )
-            )
-        } ).sort( ( a, b ) => questions[a].timestamp - questions[b].timestamp ),
-        authedUser,
+                ( typeof ( user.answers[qId] ) !== 'undefined' )
+            );
+        } ).sort( ( a, b ) => questions[a].timestamp - questions[b].timestamp )
+
+        , authedUser,
 
     };
 }
