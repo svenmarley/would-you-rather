@@ -116,8 +116,7 @@ let questions = {
 };
 
 class API {
-//export const API = () =>  {
-    //static sFunc = 'API';
+    sFunc = 'API';
 
     static generateUID() {
         return Math.random().toString( 36 ).substring( 2, 15 ) + Math.random().toString( 36 ).substring( 2, 15 );

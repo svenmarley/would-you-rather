@@ -10,6 +10,8 @@ export const GLOBALS = {
     QUESTIONS : {
         RECEIVE : 'QUESTIONS_RECEIVE',
         ADD : 'QUESTIONS_ADD',
+        SAVE_ANSWER: 'QUESTIONS_SAVE_ANSWER',
+
         OPTION_ONE : 'optionOne',
         OPTION_TWO : 'optionTwo',
     },
@@ -18,6 +20,7 @@ export const GLOBALS = {
         LOGIN : 'USER_LOGIN',
         LOGOUT : 'USER_LOGOUT',
         ADD_QUESTION_TO_USER : 'USER_ADD_QUESTION_TO_USER',
+        SAVE_USER_ANSWER: 'USER_SAVE_USER_ANSWER',
     },
     TABS : {
         ANSWERED : 'TABS_ANSWERED',
@@ -28,7 +31,9 @@ export const GLOBALS = {
 
 export function handleInitialData() {
     const sFunc1 = 'handleInitialData()-->';
-    const debug = false;
+    let debug = false;
+
+    console.log( sFunc1 );
 
     return ( dispatch, getState ) => {
         const sFunc2 = sFunc1 + '.dispatch()-->';
@@ -39,14 +44,15 @@ export function handleInitialData() {
         return API.getInitialData()
                   .then( ( { users, questions } ) => {
                       let sFunc = sFunc2 + 'getInitialData().then()-->';
+                      debug = true;
                       debug && console.log( sFunc + 'users', users );
                       debug && console.log( sFunc + 'questions', questions );
+
+                      dispatch( receiveQuestionsObj( questions ) );
 
                       dispatch( receiveUsersObj( users ) );
 
                       dispatch( setAuthedUserObj( AUTHED_ID ) );
-
-                      dispatch( receiveQuestionsObj( questions ) );
 
                       dispatch( hideLoading() );
                   } )

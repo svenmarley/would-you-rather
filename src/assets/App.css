@@ -83,6 +83,12 @@
     border-color: lightgray;
 }
 
+.question-bigblock {
+    width: 400px;
+    border: 1px gray;
+    display: inline-block;
+}
+
 .question-full {
     background-color: lightgray;
 
@@ -122,6 +128,10 @@
 
 }
 
+.question-id {
+    float: right;
+    font-size: xx-small;
+}
 .question-list {
     list-style-type: none;
     text-align: left;
