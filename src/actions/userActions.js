@@ -14,3 +14,12 @@ export function addQuestionToUser( question ) {
         question
     }
 }
+
+export function saveUserAnswer( authedUser, qid, currChoice ) {
+    return {
+        type: GLOBALS.USERS.SAVE_USER_ANSWER,
+        authedUser,
+        qid,
+        currChoice
+    }
+}
