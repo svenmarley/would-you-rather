@@ -1,66 +1,115 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-//import { withRouter } from 'react-router-dom';
+import { handleQuestionChoice } from '../actions/questionActions';
+import { GLOBALS } from '../actions/shared';
+import LoadingBarContainer from 'react-redux-loading';
+//import { BrowserRouter as Router } from 'react-router-dom';
+
+//import { withRouter } from  'react-router-dom';
 
 class Question extends Component {
     sFunc = 'Question';
+    state = {
+        currChoice : null,
+        origChoice : null,
+    };
 
-    handleChange = () => {
+    handleSubmit = ( e ) => {
+        const sFunc = this.sFunc + '.handleSubmit()-->';
+        const debug = false;
+        e.preventDefault();
 
+            debug && console.log( sFunc + 'props', this.props );
+            const { dispatch, question } = this.props;
+
+            dispatch( handleQuestionChoice(
+                question,
+                this.state.currChoice,
+            ) );
+    };
+
+    handleChange = ( e ) => {
+        const sFunc = this.sFunc + '.handleChange()-->';
+        const debug = false;
+
+        debug && console.log( sFunc + 'e.target', e.target );
+
+        this.setState( () => ( { currChoice : e.target.value } ) );
+    }
+
+    componentDidMount() {
+        const sFunc = this.sFunc + '.componentDidMount()-->';
+        const debug = true;
+
+        debug && console.log( sFunc + 'props', this.props );
+
+        this.setState( () => ( {
+            currChoice : this.props.authedUserChoice,
+            origChoice : this.props.authedUserChoice,
+        } ) );
     }
 
     render() {
         const sFunc = this.sFunc + '.render()-->';
+        const debug = false;
 
-        console.log( sFunc + 'props', this.props );
+        debug && console.log( sFunc + 'props', this.props );
 
-        const { question, author, authedUserChoice } = this.props;
+        const { question, author } = this.props;
 
         return (
-            <span className="question-full">
-                <div className="question-asking">
-                    <h3>&nbsp;&nbsp;{author.name} asks:</h3>
-                </div>
-                <div className="question-block">
-                    <div className="question-avatar">
-                        <img
-                            src={author.avatarURL}
-                            width="90"
-                            alt={'Image of ' + author.name}
-                        />
+            <div className='question-bigblock'>
+                <LoadingBarContainer/>
+                <span className="question-full">
+                    <div className="question-asking">
+                        <h3>&nbsp;&nbsp;{author.name} asks:</h3>
+                        <span className="question-id">
+                            [id={question.id}]
+                        </span>
                     </div>
-                    <div className="question-details">
-                        <form>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="questionChoice"
-                                    value="optionOne"
-                                    checked={authedUserChoice === 'optionOne'}
-                                    onChange={this.handleChange}
-                                />
-                                {question.optionOne.text}
-                            </label>
-                            <br/>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="questionChoice"
-                                    value="optionTwo"
-                                    checked={authedUserChoice === 'optionTwo'}
-                                    onChange={this.handleChange}
-                                />
-                                {question.optionTwo.text}
-                            </label>
-                            <br/>
-                            <button>
-                                Submit
-                            </button>
-                        </form>
+                    <div className="question-block">
+                        <div className="question-avatar">
+                            <img
+                                src={author.avatarURL}
+                                width="90"
+                                alt={'Image of ' + author.name}
+                            />
+                        </div>
+                        <div className="question-details">
+                            <form onSubmit={this.handleSubmit}>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="questionChoice"
+                                        value={GLOBALS.QUESTIONS.OPTION_ONE}
+                                        checked={this.state.currChoice === GLOBALS.QUESTIONS.OPTION_ONE}
+                                        onChange={this.handleChange}
+                                    />
+                                    {question.optionOne.text}
+                                </label>
+                                <br/>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="questionChoice"
+                                        value={GLOBALS.QUESTIONS.OPTION_TWO}
+                                        checked={this.state.currChoice === GLOBALS.QUESTIONS.OPTION_TWO}
+                                        onChange={this.handleChange}
+                                    />
+                                    {question.optionTwo.text}
+                                </label>
+                                <br/>
+                                <button
+                                    disabled={this.state.currChoice === this.state.origChoice }
+                                >
+                                    Submit
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </span>
+                </span>
+            </div>
 
         );
     }
@@ -70,9 +119,9 @@ Question.propTypes = {
     id : PropTypes.string, //.isRequired,
 };
 
-function mapStateToProps( { questions, users, authedUser }, props ) {
+function mapStateToProps( { questions = [], users = [], authedUser }, props ) {
     const sFunc = 'Question.mapStateToProps()-->';
-    const debug = true;
+    const debug = false;
 
     const { id } = props.match.params;
 
@@ -86,17 +135,17 @@ function mapStateToProps( { questions, users, authedUser }, props ) {
 
     const question = questions[id];
     const author = users[question.authorId];
-    let authedUserChoice = 'none';
-    let v = question.optionOne.votes.find( (v) => ( v === authedUser ) );
+    let authedUserChoice = null;
+    let v = question.optionOne.votes.find( ( v ) => ( v === authedUser ) );
     if ( v ) {
-        authedUserChoice = 'optionOne'
+        authedUserChoice = GLOBALS.QUESTIONS.OPTION_ONE;
     }
-    else if ( !authedUserChoice ) {
-        v = question.optionTwo.votes.find( (v) => ( v === authedUser ) );
-        if ( v ) authedUserChoice = 'optionTwo'
+    else {
+        v = question.optionTwo.votes.find( ( v ) => ( v === authedUser ) );
+        if ( v ) authedUserChoice = GLOBALS.QUESTIONS.OPTION_TWO;
     }
 
-    console.log( sFunc + 'authedUserChoice', authedUserChoice );
+    debug && console.log( sFunc + 'authedUserChoice', authedUserChoice );
 
     return {
         question,
