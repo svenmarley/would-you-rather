@@ -6,7 +6,7 @@ import { saveUserAnswer} from './userActions';
 
 export function receiveQuestionsObj( questions ) {
     const sFunc = 'receiveQuestionsObj()-->'
-    const debug = true;
+    const debug = false;
 
     debug && console.log( sFunc + 'questions', questions );
 

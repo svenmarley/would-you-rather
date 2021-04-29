@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import { GLOBALS } from '../actions/shared';
-import DashboardTab from './Dashboard-Tab';
+import DashboardTab from './DashboardTab';
 import { connect } from 'react-redux';
 import ListQuestion from './ListQuestion';
+import { withRouter } from 'react-router-dom';
+import { setCurrentTab } from '../actions/questionTabActions';
 
 class Dashboard extends Component {
     sFunc = 'Dashboard';
-    state = {
-        currTabSelected : GLOBALS.TABS.UNANSWERED,
-    };
+
+    // componentDidMount() {
+    //     const sFunc = 'Dashboard.componentDidMount()-->';
+    //     const debug = true;
+    //
+    //     debug && console.log( sFunc + 'Dashboard.state', this.state );
+    //     debug && console.log( sFunc + 'props', this.props );
+    // }
 
     getOppositeTab = () => {
-        if ( this.state.currTabSelected === GLOBALS.TABS.UNANSWERED )
+        if ( this.props.questionsTab === GLOBALS.TABS.UNANSWERED )
             return GLOBALS.TABS.ANSWERED;
         else
             return GLOBALS.TABS.UNANSWERED;
@@ -19,37 +26,43 @@ class Dashboard extends Component {
 
     handleTabClick = ( e ) => {
         const sFunc = this.sFunc + '.handleTabClick()-->';
+        const debug = false;
 
         const { id } = e.target;
+        const { questionsTab } = this.props;
 
-        console.log( sFunc + 'id', id );
+        debug && console.log( sFunc + 'id', id );
 
-        if ( id === this.state.currTabSelected ) {
+        if ( id === questionsTab ) {
             console.log( sFunc + '  Already selected tab' );
             return;
         }
 
-        this.setState( ( state ) => ( {
-            ...state,
-            currTabSelected : this.getOppositeTab(),
-        } ) );
+        const newTab = this.getOppositeTab();
 
+        this.props.dispatch( setCurrentTab( newTab ) );
     };
 
     render() {
+        const sFunc = this.sFunc + '.render()-->';
+        const debug = false;
+
+        const { questionsTab } = this.props;
+
+        debug && console.log( sFunc + 'Dashboard.state', this.state );
         return (
             <div>
                 <div className="tabs">
                     <DashboardTab
-                        currSelected={this.state.currTabSelected}
-                        thisOne={GLOBALS.TABS.UNANSWERED}
+                        currSelected={questionsTab}
+                        thisTab={GLOBALS.TABS.UNANSWERED}
                         handler={this.handleTabClick}/>
                     <DashboardTab
-                        currSelected={this.state.currTabSelected}
-                        thisOne={GLOBALS.TABS.ANSWERED}
+                        currSelected={questionsTab}
+                        thisTab={GLOBALS.TABS.ANSWERED}
                         handler={this.handleTabClick}/>
                 </div>
-                {this.state.currTabSelected === GLOBALS.TABS.UNANSWERED ?
+                {questionsTab === GLOBALS.TABS.UNANSWERED ?
                     <div id="UnansweredQuestions"
                          className="answers"
                     >
@@ -81,12 +94,15 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps( { questions, users, authedUser } ) {
-    const sFunc = 'Dashboard.mapStateToProps()-->'
+function mapStateToProps( { questions, users, authedUser, questionsTab } ) {
+    const sFunc = 'Dashboard.mapStateToProps()-->';
+    const debug = true;
 
+    debug && console.log( sFunc + 'users', users )
     const user = users[authedUser];
 
-    console.log( sFunc + 'user', user );
+    debug && console.log( sFunc + 'user', user );
+    debug && console.log( sFunc + 'questionsTab', questionsTab );
 
     return {
         unansweredQuestionIds : Object.keys( questions ).filter( ( qId ) => {
@@ -101,9 +117,10 @@ function mapStateToProps( { questions, users, authedUser } ) {
             );
         } ).sort( ( a, b ) => questions[a].timestamp - questions[b].timestamp )
 
-        , authedUser,
+        , authedUser
+        , questionsTab,
 
     };
 }
 
-export default connect( mapStateToProps )( Dashboard );
+export default withRouter( connect( mapStateToProps )( Dashboard ) );

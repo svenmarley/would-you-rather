@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 // import { Avatar } from '@material-ui/core';
 // import Question from './Question';
 import { withRouter } from 'react-router-dom';
+import { getAuthedUsersChoice } from '../actions/shared';
 
 class ListQuestion extends Component {
     sFunc = 'ListQuestion';
@@ -14,11 +15,24 @@ class ListQuestion extends Component {
         const debug = false;
 
         debug && console.log( sFunc + 'target', e.target );
+        debug && console.log( sFunc + 'props', this.props );
 
         const id = e.target.id;
         debug && console.log( sFunc + 'id', id );
 
-        this.props.history.push( `/question/${id}` );
+        const { questions, authedUser } = this.props;
+        const question = questions[id];
+
+        let authedUserChoice = getAuthedUsersChoice( question, authedUser )
+
+        debug && console.log( sFunc + 'authedUserChoice', authedUserChoice );
+
+        if ( authedUserChoice !== null ) {
+            this.props.history.push( `/questionSummary/${id}` );
+        }
+        else {
+            this.props.history.push( `/question/${id}` );
+        }
     };
 
     render() {
@@ -65,11 +79,11 @@ ListQuestion.propTypes = {
     id : PropTypes.string.isRequired,
 };
 
-function mapStateToProps( { questions, users, authedUserId } ) {
+function mapStateToProps( { questions, users, authedUser } ) {
     return {
         questions,
         users,
-        authedUserId,
+        authedUser,
     };
 }
 

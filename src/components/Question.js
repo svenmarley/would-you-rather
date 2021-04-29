@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { handleQuestionChoice } from '../actions/questionActions';
-import { GLOBALS } from '../actions/shared';
+import { GLOBALS, getAuthedUsersChoice } from '../actions/shared';
 import LoadingBarContainer from 'react-redux-loading';
 //import { BrowserRouter as Router } from 'react-router-dom';
-
 //import { withRouter } from  'react-router-dom';
 
 class Question extends Component {
@@ -27,6 +26,12 @@ class Question extends Component {
                 question,
                 this.state.currChoice,
             ) );
+
+            const id = question.id;
+            debug && console.log( sFunc + 'id', id );
+
+            this.props.history.push( `/questionSummary/${id}` );
+
     };
 
     handleChange = ( e ) => {
@@ -59,7 +64,7 @@ class Question extends Component {
         const { question, author } = this.props;
 
         return (
-            <div className='question-bigblock'>
+            <div className='question-bigBlock'>
                 <LoadingBarContainer/>
                 <span className="question-full">
                     <div className="question-asking">
@@ -135,15 +140,8 @@ function mapStateToProps( { questions = [], users = [], authedUser }, props ) {
 
     const question = questions[id];
     const author = users[question.authorId];
-    let authedUserChoice = null;
-    let v = question.optionOne.votes.find( ( v ) => ( v === authedUser ) );
-    if ( v ) {
-        authedUserChoice = GLOBALS.QUESTIONS.OPTION_ONE;
-    }
-    else {
-        v = question.optionTwo.votes.find( ( v ) => ( v === authedUser ) );
-        if ( v ) authedUserChoice = GLOBALS.QUESTIONS.OPTION_TWO;
-    }
+    let authedUserChoice = getAuthedUsersChoice( question, authedUser )
+
 
     debug && console.log( sFunc + 'authedUserChoice', authedUserChoice );
 
@@ -153,5 +151,6 @@ function mapStateToProps( { questions = [], users = [], authedUser }, props ) {
         authedUserChoice,
     };
 }
+
 
 export default connect( mapStateToProps )( Question );
