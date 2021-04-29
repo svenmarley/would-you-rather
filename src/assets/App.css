@@ -83,7 +83,7 @@
     border-color: lightgray;
 }
 
-.question-bigblock {
+.question-bigBlock {
     width: 400px;
     border: 1px gray;
     display: inline-block;
@@ -92,6 +92,48 @@
 .question-full {
     background-color: lightgray;
 
+
+}
+
+.question-winner {
+    color: green;
+    font-weight: bold;
+    border: 3px green;
+    background-color: aquamarine;
+    padding: 10px;
+}
+.question-loser {
+    border: 2px black;
+    background-color: aliceblue;
+
+    padding: 10px 10px 10px 10px;
+}
+
+.question-yourChoice {
+    position: relative;
+    top: 20px;
+    left: 95%;
+    width: 30px;
+    margin: -30px 0 0 0
+}
+
+.question-details2 {
+    width: 100%;
+    background-color: white;
+    border: 1px solid gray;
+
+    text-align: left;
+    align-items: center;
+    display: block;
+}
+
+.question-graph {
+    width: 100%;
+    display: flex;
+    padding: 5px;
+}
+
+.question-summaries {
 
 }
 
@@ -105,7 +147,9 @@
     background-color: lightgray;
     display: inline-block;
     width: 100%;
+    text-align: left;
 }
+
 
 .question-block {
     background-color: white;
@@ -141,15 +185,15 @@
 }
 
 .question-details {
-    display: inline-grid;
     width: 100%;
     background-color: white;
     border: 1px solid gray;
 
     text-align: left;
-    padding: 25px 0 0 0;
-
+    align-items: center;
+    display: flex;
 }
+
 
 .question-button {
 
