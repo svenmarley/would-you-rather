@@ -4,17 +4,17 @@ import { GLOBALS } from '../actions/shared';
 
 class DashboardTab extends Component {
     render() {
-        const { currSelected, thisOne, handler } = this.props;
+        const { currSelected, thisTab, handler } = this.props;
 
         return (
             <span
-                id={thisOne}
-                className={thisOne === currSelected
+                id={thisTab}
+                className={thisTab === currSelected
                     ? 'tab-active'
                     : 'tab-inactive'}
                 onClick={handler}
             >
-                {thisOne === GLOBALS.TABS.UNANSWERED
+                {thisTab === GLOBALS.TABS.UNANSWERED
                     ? 'Unanswered Questions'
                     : 'Answered Questions'
                 }
@@ -25,7 +25,7 @@ class DashboardTab extends Component {
 
 DashboardTab.propTypes = {
     currSelected : PropTypes.string.isRequired,
-    thisOne : PropTypes.string.isRequired,
+    thisTab : PropTypes.string.isRequired,
     handler : PropTypes.func.isRequired,
 };
 
