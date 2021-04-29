@@ -8,6 +8,7 @@ import Dashboard from './Dashboard';
 import Question from './Question';
 import Nav from './Nav';
 import LoadingBarContainer from 'react-redux-loading';
+import QuestionSummary from './QuestionSummary';
 
 class App extends Component {
 
@@ -22,14 +23,15 @@ class App extends Component {
                     <LoadingBarContainer/>
                     <div className="App">
                         <Nav/>
-                        { this.props.loading === true
-                        ? null
-                        : <div>
-                            <Route path={'/'} exact component={Dashboard}/>
-                            <Route path={'/new'} exact component={NewQuestion}/>
-                            <Route path={'/question/:id'} exact component={Question}/>
-                        </div>
-                            }
+                        {this.props.loading === true
+                            ? null
+                            : <div>
+                                <Route path={'/'} exact component={Dashboard}/>
+                                <Route path={'/new'} exact component={NewQuestion}/>
+                                <Route path={'/question/:id'} exact component={Question}/>
+                                <Route path={'/questionSummary/:id'} exact component={QuestionSummary}/>
+                            </div>
+                        }
                     </div>
 
                 </Fragment>
