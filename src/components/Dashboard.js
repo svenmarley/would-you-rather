@@ -96,7 +96,7 @@ class Dashboard extends Component {
 
 function mapStateToProps( { questions, users, authedUser, questionsTab } ) {
     const sFunc = 'Dashboard.mapStateToProps()-->';
-    const debug = true;
+    const debug = false;
 
     debug && console.log( sFunc + 'users', users )
     const user = users[authedUser];
