@@ -23,7 +23,7 @@ class ListQuestion extends Component {
         const { questions, authedUser } = this.props;
         const question = questions[id];
 
-        let authedUserChoice = getAuthedUsersChoice( question, authedUser )
+        let authedUserChoice = getAuthedUsersChoice( question, authedUser );
 
         debug && console.log( sFunc + 'authedUserChoice', authedUserChoice );
 
@@ -61,13 +61,15 @@ class ListQuestion extends Component {
                     </div>
                     <div className="question-details">
                         &nbsp;&nbsp;... {thisQuestion.optionOne.text.substr( 0, 15 )} ...
+                        <div>
                         <button
                             style={{ margin : '2px 2px 2px 2px' }}
                             onClick={this.showQuestion}
                             id={id}
                         >
-                            View Question
+                            Answer Question
                         </button>
+                            </div>
                     </div>
                 </div>
             </span>
