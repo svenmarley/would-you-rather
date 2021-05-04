@@ -191,7 +191,7 @@
 
     text-align: left;
     align-items: center;
-    display: flex;
+    display: grid;
 }
 
 
@@ -217,4 +217,56 @@
 
 .active {
     font-weight: bold;
+}
+
+.user-box {
+    border: 1px solid gray;
+    display: inline-flex;
+    text-align: center;
+}
+.user {
+
+}
+.user li {
+    list-style: none;
+}
+
+.user-summary-details {
+    margin: 0 10px 0 10px;
+    text-align: left;
+}
+.user-totals {
+    margin: 0 10px 10px 0;
+    display: inline;
+    float: left;
+}
+.user-totals2 {
+    float: right;
+}
+
+.user-score-box {
+    margin: 5px;
+    display: inline-block;
+    padding: 20px 0 0 0;
+}
+
+
+.user-score-text {
+    border: 1px solid gray;
+}
+.user-score-circle-box {
+    border: 1px solid gray;
+}
+.user-score-circle {
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    padding: 10px;
+    margin: 5px;
+    background: greenyellow;
+    border: 0 solid #000;
+    color: #000;
+    text-align: center;
+    font: 24px Arial, sans-serif;
+
 }
