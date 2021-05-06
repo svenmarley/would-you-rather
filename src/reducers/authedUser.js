@@ -6,7 +6,10 @@ export default function authedUser( state = null, action ) {
 
     switch ( action.type ) {
         case GLOBALS.USERS.LOGIN:
-            return action.authedUserId;
+            return action.authedUser;
+
+        case GLOBALS.USERS.LOGOUT:
+            return null;
 
         default:
             return state;
