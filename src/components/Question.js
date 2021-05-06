@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { handleQuestionChoice } from '../actions/questionActions';
-import { GLOBALS, getAuthedUsersChoice } from '../actions/shared';
+import { GLOBALS, getAuthedUsersQuestionChoice } from '../actions/shared';
 import LoadingBarContainer from 'react-redux-loading';
 //import { BrowserRouter as Router } from 'react-router-dom';
 //import { withRouter } from  'react-router-dom';
@@ -19,18 +19,18 @@ class Question extends Component {
         const debug = false;
         e.preventDefault();
 
-            debug && console.log( sFunc + 'props', this.props );
-            const { dispatch, question } = this.props;
+        debug && console.log( sFunc + 'props', this.props );
+        const { dispatch, question } = this.props;
 
-            dispatch( handleQuestionChoice(
-                question,
-                this.state.currChoice,
-            ) );
+        dispatch( handleQuestionChoice(
+            question,
+            this.state.currChoice,
+        ) );
 
-            const id = question.id;
-            debug && console.log( sFunc + 'id', id );
+        const id = question.id;
+        debug && console.log( sFunc + 'id', id );
 
-            this.props.history.push( `/questionSummary/${id}` );
+        this.props.history.push( `/questionSummary/${id}` );
 
     };
 
@@ -41,7 +41,7 @@ class Question extends Component {
         debug && console.log( sFunc + 'e.target', e.target );
 
         this.setState( () => ( { currChoice : e.target.value } ) );
-    }
+    };
 
     componentDidMount() {
         const sFunc = this.sFunc + '.componentDidMount()-->';
@@ -64,7 +64,7 @@ class Question extends Component {
         const { question, author } = this.props;
 
         return (
-            <div className='question-bigBlock'>
+            <div className="question-bigBlock">
                 <LoadingBarContainer/>
                 <span className="question-full">
                     <div className="question-asking">
@@ -106,7 +106,7 @@ class Question extends Component {
                                 </label>
                                 <br/>
                                 <button
-                                    disabled={this.state.currChoice === this.state.origChoice }
+                                    disabled={this.state.currChoice === this.state.origChoice}
                                 >
                                     Submit
                                 </button>
@@ -140,8 +140,7 @@ function mapStateToProps( { questions = [], users = [], authedUser }, props ) {
 
     const question = questions[id];
     const author = users[question.authorId];
-    let authedUserChoice = getAuthedUsersChoice( question, authedUser )
-
+    let authedUserChoice = getAuthedUsersQuestionChoice( question, authedUser );
 
     debug && console.log( sFunc + 'authedUserChoice', authedUserChoice );
 
@@ -151,6 +150,5 @@ function mapStateToProps( { questions = [], users = [], authedUser }, props ) {
         authedUserChoice,
     };
 }
-
 
 export default connect( mapStateToProps )( Question );
