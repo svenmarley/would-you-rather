@@ -1,11 +1,13 @@
+// noinspection SpellCheckingInspection
+
 import { API } from '../utils/_DATA';
 import { showLoading, hideLoading } from 'react-redux-loading';
 import { receiveUsersObj } from './userActions';
 import { receiveQuestionsObj } from './questionActions';
-import { setAuthedUserObj } from './authedUserActions';
+import { setAuthedUserObjLogOut } from './authedUserActions';
 import { setCurrentTab } from './questionTabActions';
 
-const AUTHED_ID = 'sarahedo';
+//const AUTHED_ID = 'sarahedo';
 
 export const GLOBALS = {
     QUESTIONS : {
@@ -37,7 +39,7 @@ export function handleInitialData() {
 
     console.log( sFunc1 );
 
-    return ( dispatch, getState ) => {
+    return ( dispatch, /*getState*/ ) => {
         const sFunc2 = sFunc1 + '.dispatch()-->';
         debug && console.log( sFunc2 + 'here' );
 
@@ -53,21 +55,17 @@ export function handleInitialData() {
 
                       dispatch( receiveUsersObj( users ) );
 
-                      dispatch( setAuthedUserObj( AUTHED_ID ) );
-
                       dispatch( setCurrentTab( GLOBALS.TABS.UNANSWERED ));
+
+                      dispatch( setAuthedUserObjLogOut() )
+                      //dispatch( setAuthedUserObj( 'johndoe' ) );
 
                       dispatch( hideLoading() );
                   } )
-                  .then( () => {
-                      const sFunc = sFunc2 + '_getUsers().then().then()-->';
-                      debug && console.log( sFunc + 'state', getState() );
-
-                  } );
     };
 }
 
-export function getAuthedUsersChoice( question, authedUser ) {
+export function getAuthedUsersQuestionChoice( question, authedUser ) {
     const sFunc = 'getAuthedUsersChoice()-->';
     const debug = true;
 
