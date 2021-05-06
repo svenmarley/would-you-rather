@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import User from './User';
+import { withRouter } from 'react-router-dom';
 
 class LeaderBoard extends Component {
+    sFunc = 'LeaderBoard';
+
+    componentDidMount() {
+        const sFunc = this.sFunc + 'componentDidMount()-->';
+        const debug = true;
+
+        debug && console.log( sFunc + 'props', this.props );
+
+        if ( this.props.authedUser === null )
+            this.props.history.push( `/login` );
+    }
+
     render() {
-        const { totaledUsers, users } = this.props;
+        const { totaledUsers, authedUser } = this.props;
+
+        if ( authedUser === null )
+            return null;
 
         return (
             <div>
@@ -22,7 +38,6 @@ class LeaderBoard extends Component {
     }
 }
 
-LeaderBoard.propTypes = {};
 
 function mapStateToProps( { questions, users, authedUser } ) {
     const sFunc = 'LeaderBoard.mapStateToProps()-->';
@@ -32,6 +47,11 @@ function mapStateToProps( { questions, users, authedUser } ) {
         console.log( sFunc + 'questions', questions );
         console.log( sFunc + 'users', users );
     }
+
+    if ( authedUser === null ) {
+        return { authedUser };
+    }
+
     // sarahedo : {
     //     id : 'sarahedo',
     //     name : 'Sarah Edo',
@@ -69,4 +89,4 @@ function mapStateToProps( { questions, users, authedUser } ) {
     };
 }
 
-export default connect( mapStateToProps )( LeaderBoard );
+export default withRouter( connect( mapStateToProps )( LeaderBoard ) );
