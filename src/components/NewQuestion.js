@@ -9,6 +9,17 @@ class NewQuestion extends Component {
         question2 : '',
     };
 
+    componentDidMount() {
+        const sFunc = this.sFunc + 'componentDidMount()-->';
+        const debug = false;
+
+        debug && console.log( sFunc + 'props', this.props );
+
+        if ( this.props.authedUser === null )
+            this.props.history.push( `/login` );
+
+    }
+
     handleChange = ( e ) => {
         const sFunc = this.sFunc + '.handleChange()-->';
         const debug = false;
@@ -49,6 +60,16 @@ class NewQuestion extends Component {
     };
 
     render() {
+        const sFunc = this.sFunc + '.render()-->';
+        const debug = false;
+
+        const { authedUser } = this.props;
+
+        debug && console.log( sFunc + 'here' );
+
+        if ( authedUser === null )
+            return null;
+
         return (
             <div>
                 <div className="new-question-box">
@@ -90,4 +111,8 @@ class NewQuestion extends Component {
     }
 }
 
-export default connect()( NewQuestion );
+function mapStateToProps( { authedUser } ) {
+    return { authedUser };
+}
+
+export default connect( mapStateToProps )( NewQuestion );
