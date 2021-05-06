@@ -123,13 +123,13 @@ class API {
     }
 
     static _getUsers() {
-        return new Promise( ( res, rej ) => {
+        return new Promise( ( res ) => {
             setTimeout( () => res( { ...users } ), 1000 );
         } );
     }
 
     static _getQuestions() {
-        return new Promise( ( res, rej ) => {
+        return new Promise( ( res ) => {
             setTimeout( () => res( { ...questions } ), 1000 );
         } );
     }
@@ -138,10 +138,11 @@ class API {
         return Promise.all( [
                                 this._getUsers(),
                                 this._getQuestions(),
-                            ] ).then( ( [ users, questions ] ) => ( {
-            users,
-            questions,
-        } ) );
+                            ] )
+                      .then( ( [ users, questions ] ) => ( {
+                          users,
+                          questions,
+                      } ) );
     }
 
     static formatQuestion( { optionOneText, optionTwoText, authorId } ) {
@@ -161,7 +162,7 @@ class API {
     }
 
     static _saveQuestionAnswer( { authedUser : authedUserId, qid, answer } ) {
-        return new Promise( ( res, rej ) => {
+        return new Promise( ( res ) => {
             setTimeout( () => {
                 users = {
                     ...users,
@@ -197,7 +198,7 @@ class API {
         debug && console.log( sFunc + 'this question', question );
         debug && console.log( sFunc + 'questions1', questions );
 
-        return new Promise( ( res, rej ) => {
+        return new Promise( ( res ) => {
             const authedUserId = question.authorId;
             const formattedQuestion = API.formatQuestion( question );
 
@@ -219,7 +220,6 @@ class API {
                         questions : users[authedUserId].questions.concat( [ formattedQuestion.id ] ),
                     },
                 };
-                let sFunc = 'saveQuestion().setTimeout()-->';
                 debug && console.log( sFuncX + 'new users', users );
                 debug && console.log( sFuncX + 'new questions', questions );
 
