@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 // import { Avatar } from '@material-ui/core';
 // import Question from './Question';
 import { withRouter } from 'react-router-dom';
-import { getAuthedUsersChoice } from '../actions/shared';
+import { getAuthedUsersQuestionChoice } from '../actions/shared';
 
 class ListQuestion extends Component {
     sFunc = 'ListQuestion';
@@ -23,7 +23,7 @@ class ListQuestion extends Component {
         const { questions, authedUser } = this.props;
         const question = questions[id];
 
-        let authedUserChoice = getAuthedUsersChoice( question, authedUser );
+        let authedUserChoice = getAuthedUsersQuestionChoice( question, authedUser );
 
         debug && console.log( sFunc + 'authedUserChoice', authedUserChoice );
 

@@ -1,9 +1,15 @@
 import { GLOBALS } from './shared';
 
-export function setAuthedUserObj( authedUserId ) {
+export function setAuthedUserObj( authedUser ) {
     return {
         type: GLOBALS.USERS.LOGIN,
-        authedUserId
+        authedUser
+    }
+}
+
+export function setAuthedUserObjLogOut() {
+    return {
+        type: GLOBALS.USERS.LOGOUT
     }
 }
 

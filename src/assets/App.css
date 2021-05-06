@@ -201,6 +201,8 @@
 
 .nav {
     display: inline-grid;
+    background-color: aliceblue;
+    white-space: nowrap;
 }
 
 .nav ul {
@@ -217,6 +219,13 @@
 
 .active {
     font-weight: bold;
+
+    border-bottom: 25px solid lightgreen;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    height: 0;
+    width: 100px;
+    float: left;
 }
 
 .user-box {
@@ -269,4 +278,20 @@
     text-align: center;
     font: 24px Arial, sans-serif;
 
+}
+
+.login-main {
+    border: 2px solid lightgray;
+    width: 50%;
+    display: inline-block;
+}
+
+.login-welcome {
+    background-color: lightgray;
+    display: flow-root;
+    padding: 0 0 10px 0;
+}
+
+.login-reactLogo {
+    width: 200px;
 }

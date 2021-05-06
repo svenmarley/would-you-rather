@@ -9,13 +9,17 @@ import { setCurrentTab } from '../actions/questionTabActions';
 class Dashboard extends Component {
     sFunc = 'Dashboard';
 
-    // componentDidMount() {
-    //     const sFunc = 'Dashboard.componentDidMount()-->';
-    //     const debug = true;
-    //
-    //     debug && console.log( sFunc + 'Dashboard.state', this.state );
-    //     debug && console.log( sFunc + 'props', this.props );
-    // }
+    componentDidMount() {
+        const sFunc = 'Dashboard.componentDidMount()-->';
+        const debug = false;
+
+        debug && console.log( sFunc + 'Dashboard.state', this.state );
+        debug && console.log( sFunc + 'props', this.props );
+
+        if ( this.props.authedUser === null )
+            this.props.history.push( `/login` );
+
+    }
 
     getOppositeTab = () => {
         if ( this.props.questionsTab === GLOBALS.TABS.UNANSWERED )
@@ -47,7 +51,15 @@ class Dashboard extends Component {
         const sFunc = this.sFunc + '.render()-->';
         const debug = false;
 
-        const { questionsTab } = this.props;
+        console.log( sFunc + 'here' );
+
+        const { questionsTab, authedUser } = this.props;
+
+        debug && console.log( sFunc + 'props', this.props );
+
+        if ( !authedUser ) {
+            return null
+        }
 
         debug && console.log( sFunc + 'Dashboard.state', this.state );
         return (
@@ -98,11 +110,20 @@ function mapStateToProps( { questions, users, authedUser, questionsTab } ) {
     const sFunc = 'Dashboard.mapStateToProps()-->';
     const debug = false;
 
-    debug && console.log( sFunc + 'users', users )
     const user = users[authedUser];
 
-    debug && console.log( sFunc + 'user', user );
-    debug && console.log( sFunc + 'questionsTab', questionsTab );
+    if ( debug ) {
+        console.log( sFunc + 'users', users )
+        console.log( sFunc + 'user', user );
+        console.log( sFunc + 'questionsTab', questionsTab );
+        console.log( sFunc + 'authedUser', authedUser );
+    }
+
+    if ( authedUser === null ) {
+        return {
+            authedUser,
+        }
+    }
 
     return {
         unansweredQuestionIds : Object.keys( questions ).filter( ( qId ) => {
