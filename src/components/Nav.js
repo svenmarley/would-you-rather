@@ -8,7 +8,7 @@ class Nav extends Component {
 
     render() {
         const sFunc = this.sFunc + '.render()-->';
-        const debug = true;
+        const debug = false;
 
         const { authedUser, users } = this.props;
 
@@ -49,13 +49,19 @@ class Nav extends Component {
                             </NavLink>
 
                             :
-                            <span>Logged in as: {userName}</span>
+                            null
                         }
                     </li>
                     <li>
                         <NavLink to={'/logout'} exact activeClassName={'active'}>
                             Logout
                         </NavLink>
+                        {authedUser === null
+                            ?
+                            null
+                            :
+                            <span style={{fontSize: 'small'}}><br />Logged in as: {userName}</span>
+                        }
                     </li>
                 </ul>
             </nav>
