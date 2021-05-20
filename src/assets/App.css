@@ -1,5 +1,6 @@
 .App {
     text-align: center;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
 }
 
 .App-logo {
@@ -102,6 +103,7 @@
     background-color: aquamarine;
     padding: 10px;
 }
+
 .question-loser {
     border: 2px black;
     background-color: aliceblue;
@@ -111,10 +113,19 @@
 
 .question-yourChoice {
     position: relative;
-    top: 20px;
+    top: 65px;
     left: 95%;
-    width: 30px;
-    margin: -30px 0 0 0
+    margin: -30px 0 0 0;
+    z-index: 10000;
+    border-radius: 50% !important;
+    background-color: yellow;
+    border-top-left-radius: 50% !important;
+    border-top-right-radius: 50% !important;
+    border-bottom-right-radius: 50% !important;
+    border-bottom-left-radius: 50% !important;
+
+    width: 40px;
+    font-size: x-small;
 }
 
 .question-details2 {
@@ -176,12 +187,9 @@
     float: right;
     font-size: xx-small;
 }
+
 .question-list {
     list-style-type: none;
-    text-align: left;
-
-    box-sizing: border-box;
-
 }
 
 .question-details {
@@ -217,14 +225,20 @@
     margin: 5px 5px 5px 5px;
 }
 
-.active {
-    font-weight: bold;
+.inactive {
+    border-bottom: 25px solid green;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    height: 0;
+    float: left;
 
+}
+
+.active {
     border-bottom: 25px solid lightgreen;
     border-left: 25px solid transparent;
     border-right: 25px solid transparent;
     height: 0;
-    width: 100px;
     float: left;
 }
 
@@ -233,9 +247,11 @@
     display: inline-flex;
     text-align: center;
 }
+
 .user {
 
 }
+
 .user li {
     list-style: none;
 }
@@ -244,11 +260,13 @@
     margin: 0 10px 0 10px;
     text-align: left;
 }
+
 .user-totals {
     margin: 0 10px 10px 0;
     display: inline;
     float: left;
 }
+
 .user-totals2 {
     float: right;
 }
@@ -263,9 +281,11 @@
 .user-score-text {
     border: 1px solid gray;
 }
+
 .user-score-circle-box {
     border: 1px solid gray;
 }
+
 .user-score-circle {
     border-radius: 50%;
     width: 24px;
