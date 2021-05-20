@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { MDBCard, MDBCardBody, MDBCardImage, MDBCardText, MDBCardTitle, MDBCol, MDBRow } from 'mdb-react-ui-kit';
 
 class User extends Component {
     sFunc = 'User';
 
     render() {
         const sFunc = this.sFunc + '.render()-->';
-        const debug = true;
+        const debug = false;
 
         const { userId, users } = this.props;
         const author = users[userId];
@@ -18,48 +19,57 @@ class User extends Component {
         const totQ = author.questions.length;
 
         return (
-            <div className="user-box">
-                <div className="question-avatar">
-                    <img
-                        src={author.avatarURL}
-                        width="90"
-                        alt={'Image of ' + author.name}
-                    />
-                </div>
-                <div className="user-summary-details">
-                    <h2>{author.name}</h2>
-                    <div>
-                        <div>
-                            <div className="user-totals">
-                                Answered questions:
-                            </div>
-                            <div className="user-totals2">
-                                {totA}
-                            </div>
-                        </div>
-                        <div style={{ borderBottom : '1px solid gray' }}>
-                            <div className="user-totals">
-                                Created questions:
-                            </div>
-                            <div className="user-totals2">
-                                {totQ}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="user-score-box">
-                    <div className="user-score-text">
-                        Score
-                    </div>
-                    <div className="user-score-circle-box">
-                        <div className="user-score-circle">
-                            {totA + totQ}
-                        </div>
-                    </div>
-                </div>
+            <MDBCard shadow="0" border="dark" xbackground="light" style={{ width : '62%', margin : 'auto' }}
+            >
+                <MDBRow className="g-0">
+                    <MDBCol md="3" style={{ verticalAlign : 'middle', margin : 'auto' }}>
+                        <MDBCardImage style={{ padding : '2px' }} src={author.avatarURL} alt="..." fluid/>
+                    </MDBCol>
+                    <MDBCol md="6">
+                        <MDBCardBody style={{ textAlign : 'left' }}>
+                            <MDBCardTitle>
+                                Results:
+                            </MDBCardTitle>
+                            <MDBRow className="g-0">
+                                <MDBCol md="10">
+                                    <MDBCardText>
+                                        Answered questions:
+                                    </MDBCardText>
+                                </MDBCol>
+                                <MDBCol md="1">
+                                    <MDBCardText>
+                                        {totA}
+                                    </MDBCardText>
+                                </MDBCol>
+                            </MDBRow>
+                            <MDBRow className="g-0">
+                                <MDBCol md="10">
+                                    <MDBCardText>
+                                        Created questions:
+                                    </MDBCardText>
+                                </MDBCol>
+                                <MDBCol md="1">
+                                    <MDBCardText>
+                                        {totQ}
+                                    </MDBCardText>
+                                </MDBCol>
+                            </MDBRow>
+                        </MDBCardBody>
+                    </MDBCol>
+                    <MDBCol md="1" style={{ margin : 'auto' }}>
+                        <MDBCard>
+                            <MDBCardText class="bg-info"
+                            >
+                                Score
+                            </MDBCardText>
+                            <MDBCardText className="rounded-circle">
+                                {totA + totQ}
+                            </MDBCardText>
+                        </MDBCard>
+                    </MDBCol>
+                </MDBRow>
+            </MDBCard>
 
-
-            </div>
         );
     }
 }
