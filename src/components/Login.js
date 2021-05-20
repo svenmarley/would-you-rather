@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactLogo from '../assets/logo.svg';
 import { setAuthedUserObj } from '../actions/authedUserActions';
+import { handleRemoveTargetPath } from '../actions/targetPathActions';
 
 class Login extends Component {
     sFunc = 'Login';
@@ -12,7 +13,7 @@ class Login extends Component {
 
     handleChange = (e) => {
         const sFunc = this.sFunc + '.handleChange()-->';
-        const debug = true;
+        const debug = false;
 
         debug && console.log( sFunc + 'e.target.value', e.target.value );
 
@@ -21,7 +22,7 @@ class Login extends Component {
     }
     handleSubmit = ( e ) => {
         const sFunc = this.sFunc + '.handleSubmit()-->';
-        const debug = true;
+        const debug = false;
 
         e.preventDefault();
 
@@ -36,13 +37,22 @@ class Login extends Component {
 
         debug && console.log( sFunc + 'userChoice', userChoice );
 
-        this.props.dispatch( setAuthedUserObj( userChoice ) );
-        this.props.history.push( `/` );
+        const { dispatch, targetPath } = this.props;
+
+        dispatch( setAuthedUserObj( userChoice ) );
+
+        if ( targetPath !== null ) {
+            console.log( sFunc + 'history.push()', targetPath );
+            this.props.history.push( targetPath );
+            dispatch( handleRemoveTargetPath() )
+        } else {
+            this.props.history.push( `/` );
+        }
     };
 
     render() {
         const sFunc = this.sFunc + '.render()-->';
-        const debug = true;
+        const debug = false;
 
         let { users,  } = this.props;
 
@@ -60,7 +70,7 @@ class Login extends Component {
             } );
         } );
 
-        console.log( sFunc + 'options', this.options );
+        debug && console.log( sFunc + 'options', this.options );
 
         return (
             <div className="login-main">
@@ -114,10 +124,11 @@ class Login extends Component {
     }
 }
 
-function mapStateToProps( { authedUser, users } ) {
+function mapStateToProps( { authedUser, users, targetPath } ) {
     return {
         authedUser,
         users,
+        targetPath,
     };
 }
 
