@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { handleAddQuestion } from '../actions/questionActions';
 import { connect } from 'react-redux';
 import { handleSaveTargetPath } from '../actions/targetPathActions';
+import { MDBCard, MDBCardBody, MDBCardText, MDBCardTitle, MDBRow } from 'mdb-react-ui-kit';
 
 class NewQuestion extends Component {
     sFunc = 'NewQuestion';
     state = {
         question1 : '',
         question2 : '',
+        questionSubmitted: false,
     };
 
     componentDidMount() {
@@ -61,6 +63,7 @@ class NewQuestion extends Component {
             return {
                 question1 : '',
                 question2 : '',
+                questionSubmitted: 'Question has been submitted',
             };
         } );
 
@@ -77,46 +80,93 @@ class NewQuestion extends Component {
         // if ( authedUser === null )
         //     return null;
 
+        let sQuestionSubmitted = this.state.questionSubmitted;
+
+
         return (
-            <div>
-                <div className="new-question-box">
-                    <div className="light-box">
+            <MDBCard>
+                <MDBCardBody shadow='0' border='blue' className='bg-white' style={{maxWidth: '50%', margin: 'auto', border: '1px solid black' }} >
+                    <MDBCardTitle className='bg-light border m-lg-auto' style={{padding: '2px'}}>
                         <h2>Create New Question</h2>
-                    </div>
-                    <div className="question-entry">
-                        Complete the question:
-                        <h4>Would you rather ...</h4>
-                        <form
-                            onSubmit={this.handleSubmit}
-                        >
-                            <input
-                                id="Question1"
-                                type="text"
-                                placeholder="Enter Question One"
-                                value={this.state.question1}
-                                onChange={this.handleChange}
-                            />
-                            <br/>
-                            ------------------- or -------------------
-                            <br/>
-                            <input
-                                id="Question2"
-                                type="text"
-                                placeholder="Enter Question Two"
-                                value={this.state.question2}
-                                onChange={this.handleChange}
-                            />
-                            <br/>
-                            <button>
-                                Submit
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+                    </MDBCardTitle>
+                    <MDBRow>
+                        <MDBCardText>
+                            Complete the question:
+                            <h4>Would you rather ...</h4>
+                            <form
+                                onSubmit={this.handleSubmit}
+                            >
+                                <input
+                                    id="Question1"
+                                    type="text"
+                                    placeholder="Enter Question One"
+                                    value={this.state.question1}
+                                    onChange={this.handleChange}
+                                />
+                                <br/>
+                                ------------------- or -------------------
+                                <br/>
+                                <input
+                                    id="Question2"
+                                    type="text"
+                                    placeholder="Enter Question Two"
+                                    value={this.state.question2}
+                                    onChange={this.handleChange}
+                                />
+                                <br/>
+                                <button>
+                                    Submit
+                                </button>
+                            </form>
+
+                        </MDBCardText>
+                    </MDBRow>
+                </MDBCardBody>
+                <MDBCardText className='text-danger'>
+                    {sQuestionSubmitted}
+                </MDBCardText>
+            </MDBCard>
         );
     }
 }
+
+// <div>
+//     <div className="new-question-box">
+//         <div className="light-box">
+//             <h2>Create New Question</h2>
+//         </div>
+//         <div className="question-entry">
+//             Complete the question:
+//             <h4>Would you rather ...</h4>
+//             <form
+//                 onSubmit={this.handleSubmit}
+//             >
+//                 <input
+//                     id="Question1"
+//                     type="text"
+//                     placeholder="Enter Question One"
+//                     value={this.state.question1}
+//                     onChange={this.handleChange}
+//                 />
+//                 <br/>
+//                 ------------------- or -------------------
+//                 <br/>
+//                 <input
+//                     id="Question2"
+//                     type="text"
+//                     placeholder="Enter Question Two"
+//                     value={this.state.question2}
+//                     onChange={this.handleChange}
+//                 />
+//                 <br/>
+//                 <button>
+//                     Submit
+//                 </button>
+//             </form>
+//         </div>
+//     </div>
+// </div>
+
 
 function mapStateToProps( { authedUser } ) {
     return { authedUser };
