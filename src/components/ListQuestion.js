@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 // import { Avatar } from '@material-ui/core';
 // import Question from './Question';
 import { withRouter } from 'react-router-dom';
-import { getAuthedUsersQuestionChoice } from '../actions/shared';
+import { getAuthedUsersQuestionChoice, GLOBALS } from '../actions/shared';
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImage, MDBBtn, MDBRow, MDBCol,  } from 'mdb-react-ui-kit';
 
 class ListQuestion extends Component {
     sFunc = 'ListQuestion';
@@ -37,45 +38,75 @@ class ListQuestion extends Component {
 
     render() {
 
-        const { questions, users, id } = this.props;
+        const { questions, users, id, questionType } = this.props;
 
         const thisQuestion = questions[id];
         const thisUser = users[thisQuestion.authorId];
 
-        return (
-            <span className="question-full">
-                <div className="question-asking">
-                    <h3>&nbsp;&nbsp;{thisUser.name} asks:</h3>
-                    <span className="question-id">
-                        [id={thisQuestion.id}]
-                    </span>
+        let sButtonText;
+        if ( questionType === GLOBALS.QUESTION_TYPES.UNANSWERED )
+            sButtonText = 'Answer';
+        else
+            sButtonText = 'See Answers';
 
-                </div>
-                <div className="question-block">
-                    <div className="question-avatar">
-                        <img
-                            src={thisUser.avatarURL}
-                            width="90"
-                            alt={'Image of ' + thisUser.name}
-                        />
-                    </div>
-                    <div className="question-details">
-                        &nbsp;&nbsp;... {thisQuestion.optionOne.text.substr( 0, 15 )} ...
-                        <div>
-                        <button
-                            style={{ margin : '2px 2px 2px 2px' }}
-                            onClick={this.showQuestion}
-                            id={id}
-                        >
-                            Answer Question
-                        </button>
-                            </div>
-                    </div>
-                </div>
-            </span>
+        return (
+            <MDBCard shadow='0' border='dark'  style={{ maxWidth: '50%', margin: 'auto' }}
+            >
+                <MDBRow className='g-0' >
+                    <MDBCol md='3' style={{verticalAlign:'middle', margin:'auto'}}>
+                        <MDBCardImage src={thisUser.avatarURL} alt='...' fluid style={{width: '600px'}}/>
+                    </MDBCol>
+                    <MDBCol md='8'>
+                        <MDBCardBody>
+                            <MDBCardTitle>
+                                {thisUser.name} asks:
+                            </MDBCardTitle>
+                            <MDBCardText >
+                                {thisQuestion.optionOne.text.substr( 0, 20 )}... <strong>-or-</strong> ...
+                            </MDBCardText>
+                            <MDBBtn onClick={this.showQuestion}
+                                    id={id}
+                            >{sButtonText}</MDBBtn>
+                        </MDBCardBody>
+                    </MDBCol>
+                </MDBRow>
+            </MDBCard>
         );
     }
 }
+
+/*
+ <span className="question-full">
+ <div className="question-asking">
+ <h3>&nbsp;&nbsp;{thisUser.name} asks:</h3>
+ <span className="question-id">
+ [id={thisQuestion.id}]
+ </span>
+
+ </div>
+ <div className="question-block">
+ <div className="question-avatar">
+ <img
+ src={thisUser.avatarURL}
+ width="90"
+ alt={'Image of ' + thisUser.name}
+ />
+ </div>
+ <div className="question-details">
+ &nbsp;&nbsp;... {thisQuestion.optionOne.text.substr( 0, 15 )} ...
+ <div>
+ <button
+ style={{ margin : '2px 2px 2px 2px' }}
+ onClick={this.showQuestion}
+ id={id}
+ >
+ Answer Question
+ </button>
+ </div>
+ </div>
+ </div>
+ </span>
+ */
 
 ListQuestion.propTypes = {
     id : PropTypes.string.isRequired,
