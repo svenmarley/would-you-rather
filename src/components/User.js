@@ -19,7 +19,7 @@ class User extends Component {
         const totQ = author.questions.length;
 
         return (
-            <MDBCard shadow="0" border="dark" xbackground="light" style={{ width : '62%', margin : 'auto' }}
+            <MDBCard shadow="0" border="dark" style={{ width : '62%', margin : 'auto' }}
             >
                 <MDBRow className="g-0">
                     <MDBCol md="3" style={{ verticalAlign : 'middle', margin : 'auto' }}>

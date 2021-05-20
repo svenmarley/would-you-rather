@@ -34,8 +34,8 @@ class LeaderBoard extends Component {
             <div>
                 <ul className='user'>
                 {totaledUsers.map( (u) => (
-                    <li key={u.id} >
-                        <User userId={u} />
+                    <li>
+                        <User userId={u} key={u.id} />
                     </li>
                 ))}
 
