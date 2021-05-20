@@ -3,18 +3,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import User from './User';
 import { withRouter } from 'react-router-dom';
+import { handleSaveTargetPath } from '../actions/targetPathActions';
 
 class LeaderBoard extends Component {
     sFunc = 'LeaderBoard';
 
     componentDidMount() {
         const sFunc = this.sFunc + 'componentDidMount()-->';
-        const debug = true;
+        const debug = false;
 
         debug && console.log( sFunc + 'props', this.props );
 
-        if ( this.props.authedUser === null )
+        if ( this.props.authedUser === null ) {
+            debug && console.log( sFunc + 'props', this.props );
+
+            const { dispatch } = this.props;
+            dispatch( handleSaveTargetPath( this.props.location.pathname ) );
+
             this.props.history.push( `/login` );
+        }
     }
 
     render() {
