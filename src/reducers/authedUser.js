@@ -10,7 +10,6 @@ export default function authedUser( state = null, action ) {
 
         case GLOBALS.USERS.LOGOUT:
             return null;
-
         default:
             return state;
     }

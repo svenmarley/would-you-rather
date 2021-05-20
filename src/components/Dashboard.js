@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import ListQuestion from './ListQuestion';
 import { withRouter } from 'react-router-dom';
 import { setCurrentTab } from '../actions/questionTabActions';
+import { MDBListGroup, MDBListGroupItem } from 'mdb-react-ui-kit';
 
 class Dashboard extends Component {
     sFunc = 'Dashboard';
@@ -16,8 +17,12 @@ class Dashboard extends Component {
         debug && console.log( sFunc + 'Dashboard.state', this.state );
         debug && console.log( sFunc + 'props', this.props );
 
-        if ( this.props.authedUser === null )
+
+        if ( this.props.authedUser === null ) {
+            console.log( sFunc + 'props', this.props );
+
             this.props.history.push( `/login` );
+        }
 
     }
 
@@ -58,13 +63,13 @@ class Dashboard extends Component {
         debug && console.log( sFunc + 'props', this.props );
 
         if ( !authedUser ) {
-            return null
+            return null;
         }
 
         debug && console.log( sFunc + 'Dashboard.state', this.state );
         return (
-            <div>
-                <div className="tabs">
+            <div style={{ margin : '0' }}>
+                <div >
                     <DashboardTab
                         currSelected={questionsTab}
                         thisTab={GLOBALS.TABS.UNANSWERED}
@@ -75,30 +80,24 @@ class Dashboard extends Component {
                         handler={this.handleTabClick}/>
                 </div>
                 {questionsTab === GLOBALS.TABS.UNANSWERED ?
-                    <div id="UnansweredQuestions"
-                         className="answers"
-                    >
-                        <ul className="question-list">
-                            {this.props.unansweredQuestionIds.map( ( id ) => (
-                                <li key={id} className="questions-li">
-                                    <ListQuestion id={id}/>
-                                </li>
-                            ) )}
-
-                        </ul>
-                    </div>
+                    <MDBListGroup>
+                        {this.props.unansweredQuestionIds.map( ( id ) => (
+                            <MDBListGroupItem key={id}
+                            >
+                                <ListQuestion id={id} questionType={GLOBALS.QUESTION_TYPES.UNANSWERED} />
+                            </MDBListGroupItem>
+                        ) )}
+                    </MDBListGroup>
                     :
-                    <div id="AnsweredQuestions"
-                         className="answers"
-                    >
-                        <ul className={'question-list'}>
-                            {this.props.answeredQuestionIds.map( ( id ) => (
-                                <li key={id} className={'questions-li'}>
-                                    <ListQuestion id={id}/>
-                                </li>
-                            ) )}
-                        </ul>
-                    </div>
+                    <MDBListGroup>
+                        {this.props.answeredQuestionIds.map( ( id ) => (
+                            <MDBListGroupItem key={id}
+                            >
+                                <ListQuestion id={id} questionType={GLOBALS.QUESTION_TYPES.ANSWERED} />
+                            </MDBListGroupItem>
+                        ) )}
+                    </MDBListGroup>
+
                 }
 
             </div>
@@ -113,7 +112,7 @@ function mapStateToProps( { questions, users, authedUser, questionsTab } ) {
     const user = users[authedUser];
 
     if ( debug ) {
-        console.log( sFunc + 'users', users )
+        console.log( sFunc + 'users', users );
         console.log( sFunc + 'user', user );
         console.log( sFunc + 'questionsTab', questionsTab );
         console.log( sFunc + 'authedUser', authedUser );
@@ -122,7 +121,7 @@ function mapStateToProps( { questions, users, authedUser, questionsTab } ) {
     if ( authedUser === null ) {
         return {
             authedUser,
-        }
+        };
     }
 
     return {

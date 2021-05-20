@@ -45,7 +45,7 @@ class Question extends Component {
 
     componentDidMount() {
         const sFunc = this.sFunc + '.componentDidMount()-->';
-        const debug = true;
+        const debug = false;
 
         debug && console.log( sFunc + 'props', this.props );
 

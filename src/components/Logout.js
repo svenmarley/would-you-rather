@@ -10,9 +10,6 @@ class Logout extends Component {
     }
 
     render() {
-        //const sFunc = this.sFunc + '.render()-->';
-        //const debug = true;
-
         return (
             <div >
                 Logged Out

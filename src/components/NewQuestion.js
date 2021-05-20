@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { handleAddQuestion } from '../actions/questionActions';
 import { connect } from 'react-redux';
+import { handleSaveTargetPath } from '../actions/targetPathActions';
 
 class NewQuestion extends Component {
     sFunc = 'NewQuestion';
@@ -10,13 +11,19 @@ class NewQuestion extends Component {
     };
 
     componentDidMount() {
-        const sFunc = this.sFunc + 'componentDidMount()-->';
+        const sFunc = this.sFunc + '.componentDidMount()-->';
         const debug = false;
 
         debug && console.log( sFunc + 'props', this.props );
 
-        if ( this.props.authedUser === null )
+        if ( this.props.authedUser === null ) {
+            debug && console.log( sFunc + 'props', this.props );
+
+            const { dispatch } = this.props;
+            dispatch( handleSaveTargetPath( this.props.location.pathname ) );
+
             this.props.history.push( `/login` );
+        }
 
     }
 
@@ -63,12 +70,12 @@ class NewQuestion extends Component {
         const sFunc = this.sFunc + '.render()-->';
         const debug = false;
 
-        const { authedUser } = this.props;
 
         debug && console.log( sFunc + 'here' );
 
-        if ( authedUser === null )
-            return null;
+        // const { authedUser } = this.props;
+        // if ( authedUser === null )
+        //     return null;
 
         return (
             <div>

@@ -16,6 +16,7 @@ import Logout from './Logout';
 class App extends Component {
     sFunc = 'App';
 
+
     componentDidMount() {
         const sFunc = this.sFunc + '.componentDidMount()-->';
         const debug = false;
@@ -27,7 +28,8 @@ class App extends Component {
 
     render() {
         const sFunc = this.sFunc + '.render()-->';
-        const debug = true;
+        const debug = false;
+
 
         debug && console.log( sFunc + 'here' );
 
@@ -40,7 +42,7 @@ class App extends Component {
                         {this.props.loading === true
                             ? null
                             : <div>
-                                <Route path={'/'} exact component={Dashboard}/>
+                                <Route path={'/'} exact component={Dashboard} />
                                 <Route path={'/new'} exact component={NewQuestion}/>
                                 <Route path={'/question/:id'} exact component={Question}/>
                                 <Route path={'/questionSummary/:id'} exact component={QuestionSummary}/>
@@ -59,6 +61,9 @@ class App extends Component {
 }
 
 function mapStateToProps( { users } ) {
+    // const sFunc = 'App.js.mapStateToProps()-->';
+    // const debug = false;
+
     return {
         loading : users.length === 0,
     };
