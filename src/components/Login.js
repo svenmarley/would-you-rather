@@ -22,7 +22,7 @@ class Login extends Component {
     }
     handleSubmit = ( e ) => {
         const sFunc = this.sFunc + '.handleSubmit()-->';
-        const debug = false;
+        const debug = true;
 
         e.preventDefault();
 
@@ -38,10 +38,11 @@ class Login extends Component {
         debug && console.log( sFunc + 'userChoice', userChoice );
 
         const { dispatch, targetPath } = this.props;
+        debug && console.log( sFunc + 'targetPath', targetPath );
 
         dispatch( setAuthedUserObj( userChoice ) );
 
-        if ( targetPath !== null ) {
+        if ( ( typeof ( targetPath ) === 'string' ) ) {
             console.log( sFunc + 'history.push()', targetPath );
             this.props.history.push( targetPath );
             dispatch( handleRemoveTargetPath() )
