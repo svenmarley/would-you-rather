@@ -83,6 +83,7 @@ class Question extends Component {
                         </div>
                         <div className="question-details">
                             <form onSubmit={this.handleSubmit}>
+                                <h4>Would you rather:</h4>
                                 <label>
                                     <input
                                         type="radio"
@@ -93,6 +94,10 @@ class Question extends Component {
                                     />
                                     {question.optionOne.text}
                                 </label>
+                                <br/>
+                                <span>
+                                    - or -
+                                </span>
                                 <br/>
                                 <label>
                                     <input
