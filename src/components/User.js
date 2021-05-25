@@ -28,7 +28,7 @@ class User extends Component {
                     <MDBCol md="6">
                         <MDBCardBody style={{ textAlign : 'left' }}>
                             <MDBCardTitle>
-                                Results:
+                                <h4>{author.name}</h4>
                             </MDBCardTitle>
                             <MDBRow className="g-0">
                                 <MDBCol md="10">
@@ -56,11 +56,10 @@ class User extends Component {
                             </MDBRow>
                         </MDBCardBody>
                     </MDBCol>
-                    <MDBCol md="1" style={{ margin : 'auto' }}>
+                    <MDBCol md="1" style={{ margin : 'auto', whiteSpace: 'nowrap' }}>
                         <MDBCard>
-                            <MDBCardText class="bg-info"
-                            >
-                                Score
+                            <MDBCardText>
+                                <span>Score</span>
                             </MDBCardText>
                             <MDBCardText className="rounded-circle">
                                 {totA + totQ}
