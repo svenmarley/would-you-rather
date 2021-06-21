@@ -37,17 +37,24 @@ class ListQuestion extends Component {
     };
 
     render() {
+        const sFunc = this.sFunc + '.render()-->';
+        const debug = false;
 
         const { questions, users, id, questionType } = this.props;
 
         const thisQuestion = questions[id];
         const thisUser = users[thisQuestion.authorId];
 
+        debug && console.log( sFunc + `id [${id}]`, 'thisQuestion', thisQuestion );
+        debug && console.log( sFunc + 'thisUser', thisUser );
+
         let sButtonText;
         if ( questionType === GLOBALS.QUESTION_TYPES.UNANSWERED )
             sButtonText = 'Answer';
         else
             sButtonText = 'See Answers';
+
+        let date = new Date( thisQuestion.timestamp ).toLocaleString()
 
         return (
             <MDBCard shadow='0' border='dark'  style={{ maxWidth: '50%', margin: 'auto' }}
@@ -61,6 +68,7 @@ class ListQuestion extends Component {
                             <MDBCardTitle>
                                 {thisUser.name} asks:
                             </MDBCardTitle>
+                            <MDBCardText>{date}</MDBCardText>
                             <MDBCardText >
                                 {thisQuestion.optionOne.text.substr( 0, 20 )}... <strong>-or-</strong> ...
                             </MDBCardText>

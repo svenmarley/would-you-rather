@@ -129,13 +129,13 @@ function mapStateToProps( { questions, users, authedUser, questionsTab } ) {
             return (
                 ( typeof ( user.answers[qId] ) === 'undefined' )
             );
-        } ).sort( ( a, b ) => questions[a].timestamp - questions[b].timestamp )
+        } )//.sort( ( a, b ) => questions[a].timestamp - questions[b].timestamp )
 
         , answeredQuestionIds : Object.keys( questions ).filter( ( qId ) => {
             return (
                 ( typeof ( user.answers[qId] ) !== 'undefined' )
             );
-        } ).sort( ( a, b ) => questions[a].timestamp - questions[b].timestamp )
+        } )//.sort( ( a, b ) => questions[a].timestamp - questions[b].timestamp )
 
         , authedUser
         , questionsTab,

@@ -57,10 +57,12 @@ export default function questions( state = {}, action ) {
             };
 
         case GLOBALS.QUESTIONS.RECEIVE :
-            return {
-                ...state,
-                ...action.questions,
-            };
+
+            return orderQuestions( action.questions );
+            // return {
+            //     ...state,
+            //     questions: questions2,
+            // };
 
         case GLOBALS.QUESTIONS.ADD:
             const { question } = action;
@@ -68,16 +70,55 @@ export default function questions( state = {}, action ) {
             debug && console.log( sFunc + 'question', question );
             debug && console.log( sFunc + 'state', state );
 
-            let b = {
-                ...state,
-                [question.id] : question,
-            };
+            state.questions[question.id] = question;
 
-            debug && console.log( sFunc + 'b', b );
-
-            return b;
+            return orderQuestions( state.questions )
+            // let b = {
+            //     ...state,
+            //     questions: questions,
+            // };
+            //
+            // debug && console.log( sFunc + 'b', b );
+            //
+            // return b;
 
         default:
             return state;
     }
+}
+
+function orderQuestions( questions ) {
+    const sFunc = 'orderQuestions()-->';
+    const debug = false;
+
+    debug && console.log( sFunc + 'inQuestions', questions )
+
+
+    let aQ = []
+    Object.keys( questions ).forEach( (k) => {
+
+        const a = questions[k].timestamp;
+        let b = {
+            id: k,
+            timestamp: a
+        }
+
+        aQ.push( b )
+    });
+
+    aQ.sort( (a, b ) => {
+        debug && console.log( sFunc + 'sort-->a', a, 'b', b, 'returning', ( b.timestamp - a.timestamp ) );
+        return ( b.timestamp - a.timestamp )
+    })
+
+    debug && console.log( sFunc + 'aQ', aQ );
+
+    let ret = {}
+    aQ.forEach( (a) => {
+
+        ret[a.id] = questions[a.id]
+    } )
+    debug && console.log( sFunc + 'returning ret', ret )
+
+    return ret;
 }
