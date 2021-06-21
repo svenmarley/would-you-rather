@@ -67,6 +67,7 @@ class NewQuestion extends Component {
             };
         } );
 
+        this.props.history.push( `/` );
     };
 
     render() {
