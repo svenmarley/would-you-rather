@@ -13,12 +13,17 @@ import LeaderBoard from './LeaderBoard';
 import Login from './Login';
 import Logout from './Logout';
 
+// todo:
+//  * The details of the poll are available at questions/:question_id.
+
+
+
 class App extends Component {
-    sFunc = 'App';
+    #sFunc = 'App';
 
 
     componentDidMount() {
-        const sFunc = this.sFunc + '.componentDidMount()-->';
+        const sFunc = this.#sFunc + '.componentDidMount()-->';
         const debug = false;
 
         debug && console.log( sFunc + 'props', this.props );
@@ -27,7 +32,7 @@ class App extends Component {
     }
 
     render() {
-        const sFunc = this.sFunc + '.render()-->';
+        const sFunc = this.#sFunc + '.render()-->';
         const debug = false;
 
 
