@@ -14,7 +14,7 @@ import Login from './Login';
 import Logout from './Logout';
 
 // todo:
-//  * The details of the poll are available at questions/:question_id.
+// *
 
 
 
