@@ -29,7 +29,7 @@ class ListQuestion extends Component {
         debug && console.log( sFunc + 'authedUserChoice', authedUserChoice );
 
         if ( authedUserChoice !== null ) {
-            this.props.history.push( `/questionSummary/${id}` );
+            this.props.history.push( `/questions/${id}` );
         }
         else {
             this.props.history.push( `/question/${id}` );

@@ -30,7 +30,7 @@ class Question extends Component {
         const id = question.id;
         debug && console.log( sFunc + 'id', id );
 
-        this.props.history.push( `/questionSummary/${id}` );
+        this.props.history.push( `/questions/${id}` );
 
     };
 

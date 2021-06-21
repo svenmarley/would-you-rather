@@ -73,6 +73,12 @@ export function handleInitialData() {
     };
 }
 
+/**
+ *
+ * @param question
+ * @param authedUser
+ * @return {null|string}
+ */
 export function getAuthedUsersQuestionChoice( question, authedUser ) {
     const sFunc = 'getAuthedUsersChoice()-->';
     const debug = true;
