@@ -14,7 +14,6 @@ import Login from './Login';
 import Logout from './Logout';
 
 // todo:
-//  * New Question: Upon submitting the form, a new poll is created and the user is taken to the home page.
 
 
 
