@@ -25,7 +25,7 @@ class Nav extends Component {
                 <ul>
                     <li>
                         <NavLink to={'/'} exact activeClassName={'active'}>
-                            xHome
+                            Home
                         </NavLink>
                     </li>
                     <li>
