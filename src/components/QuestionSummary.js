@@ -45,7 +45,7 @@ class QuestionSummary extends Component {
 
                 <MDBCard shadow="0" border="dark" style={{ display : 'inline-block', margin : 'auto' }}
                 >
-                    <MDBCardTitle class={'bg-info'} style={{ textAlign : 'left', padding : '5px' }}>
+                    <MDBCardTitle class='bg-info' style={{ textAlign : 'left', padding : '5px' }}>
                         Asked by {author.name}:
                     </MDBCardTitle>
                     <MDBRow style={{ whiteSpace : 'nowrap', margin : '0px 0px 10px 0px' }}>
