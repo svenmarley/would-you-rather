@@ -23,15 +23,15 @@ class User extends Component {
             >
                 <MDBRow className="g-0">
                     <MDBCol md="3" style={{ verticalAlign : 'middle', margin : 'auto' }}>
-                        <MDBCardImage style={{ padding : '2px' }} src={author.avatarURL} alt="..." fluid/>
+                        <MDBCardImage style={{ padding : '2px', maxWidth: '125px' }} src={author.avatarURL} alt="..." fluid/>
                     </MDBCol>
                     <MDBCol md="6">
-                        <MDBCardBody style={{ textAlign : 'left' }}>
+                        <MDBCardBody style={{ textAlign : 'left', textOrientation: 'noWrap' }}>
                             <MDBCardTitle>
                                 <h4>{author.name}</h4>
                             </MDBCardTitle>
                             <MDBRow className="g-0">
-                                <MDBCol md="10">
+                                <MDBCol md="8">
                                     <MDBCardText>
                                         Answered questions:
                                     </MDBCardText>
@@ -43,7 +43,7 @@ class User extends Component {
                                 </MDBCol>
                             </MDBRow>
                             <MDBRow className="g-0">
-                                <MDBCol md="10">
+                                <MDBCol md="8">
                                     <MDBCardText>
                                         Created questions:
                                     </MDBCardText>
